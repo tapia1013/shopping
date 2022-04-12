@@ -43,7 +43,7 @@ const ProductScreen = ({ match, history }) => {
   // get params to get id and push with history
   // /cart/34d349ms023sm342s93?qty=3
   const addToCartHandler = (e) => {
-    history.push(`/cart/${match.params.id}?qt=${qty}`)
+    history.push(`/cart/${match.params.id}?qty=${qty}`)
   }
 
 
