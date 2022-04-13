@@ -3,7 +3,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails, updateUserProfile } from '../actions/userActions';
 
 
 
@@ -24,6 +24,9 @@ const ProfileScreen = ({ location, history }) => {
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
+  // To get message that is in userUpdateProfile reducer and se message that its been updated success
+  const userUpdateProfile = useSelector(state => state.userUpdateProfile)
+  const { success } = userUpdateProfile
 
 
   // redirect if user isnt logged in
@@ -50,7 +53,7 @@ const ProfileScreen = ({ location, history }) => {
     if (password !== confirmPassword) {
       setMessage('Passwords do not match')
     } else {
-      // DISPATCH UPDATE PROFILE
+      dispatch(updateUserProfile({ id: user._id, name, email, password }))
     }
 
   }
@@ -65,8 +68,9 @@ const ProfileScreen = ({ location, history }) => {
 
         {error && (<Message variant='danger'>{error}</Message>)}
 
-        {loading && (<Loader />)}
+        {success && (<Message variant='success'>Profile Updated</Message>)}
 
+        {loading && (<Loader />)}
 
         <Form onSubmit={submitHandler}>
           <Form.Group controlId='name'>
