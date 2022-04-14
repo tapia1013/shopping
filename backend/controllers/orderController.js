@@ -16,6 +16,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     shippingPrice
   } = req.body
 
+  // console.log(req.body);
 
   // Make sure its not empty
   if (orderItems && orderItems.length === 0) {
@@ -25,7 +26,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     // create a new order in DATABASE
     const order = new Order({
       orderItems,
-      user: req.body._id,
+      user: req.user._id,
       shippingAddress,
       paymentMethod,
       itemsPrice,
